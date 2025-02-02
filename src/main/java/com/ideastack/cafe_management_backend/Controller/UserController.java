@@ -1,26 +1,30 @@
-package com.ideastack.cafe_management_backend.rest.restimpl;
+package com.ideastack.cafe_management_backend.Controller;
 
 import com.ideastack.cafe_management_backend.constants.CafeConstants;
-import com.ideastack.cafe_management_backend.rest.UserRest;
 import com.ideastack.cafe_management_backend.service.UserService;
 import com.ideastack.cafe_management_backend.util.CafeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
-public class UserRestImpl implements UserRest {
-
+@RequestMapping("/user")
+public class UserController {
     @Autowired
     UserService userService;
 
-    @Override
-    public ResponseEntity<String> signup(Map<String, String> requestMap) {
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello I am working";
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup(@RequestBody Map<String, String> requestMap) {
         try{
-            return userService.signup(requestMap);
+            return  userService.signup(requestMap);
         }catch(Exception ex){
             ex.printStackTrace();
         }
